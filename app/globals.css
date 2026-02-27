@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-brand-lightGrey text-gray-900;
+    font-family: "Lato", "Roboto", "Helvetica Neue", Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1 {
+    font-family: "Roboto", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 700;
+  }
+
+  h2, h3 {
+    font-family: "Lato", "Helvetica Neue", Arial, sans-serif;
+    font-weight: 700;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .gradient-radial {
+    background: radial-gradient(circle, #1d4c93 0%, #14384E 100%);
+  }
+}
+
+
