@@ -35,14 +35,14 @@ export default function FilterControls() {
     <div className="bg-white rounded-xl border border-gray-200 px-6 py-4">
 
       {/* Row 1 */}
-      <div className="flex flex-wrap items-end gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap lg:items-end gap-3 lg:gap-6">
 
         {/* ACCOUNT */}
         <div className="flex flex-col gap-1">
           <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">
             Account
           </span>
-          <select className={`${inputCls} min-w-[190px] bg-white`}>
+          <select className={`${inputCls} w-full bg-white`}>
             <option value="" />
           </select>
         </div>
@@ -55,7 +55,7 @@ export default function FilterControls() {
           <input
             type="text"
             defaultValue="2026-02-27"
-            className={`${inputCls} w-44`}
+            className={`${inputCls} w-full`}
           />
         </div>
 
@@ -64,7 +64,7 @@ export default function FilterControls() {
           <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">
             Calendar Range
           </span>
-          <select className={`${inputCls} min-w-[140px] bg-white`}>
+          <select className={`${inputCls} w-full bg-white`}>
             <option value="">--</option>
             {CALENDAR_OPTIONS.map((o) => (
               <option key={o} value={o}>{o}</option>
@@ -93,7 +93,7 @@ export default function FilterControls() {
         </div>
 
         {/* Refresh */}
-        <div className="ml-auto">
+        <div className="flex items-end sm:col-span-2 lg:col-span-1 lg:ml-auto">
           <button
             className="w-10 h-10 flex items-center justify-center rounded-full bg-brand-lightBlue hover:bg-brand-brandBlue text-white transition-colors"
             aria-label="Refresh"
@@ -106,7 +106,7 @@ export default function FilterControls() {
 
       {/* Row 2 — visible when Compare is ON */}
       {compareOn && (
-        <div className="flex flex-wrap items-end gap-6 mt-4 pt-4 border-t border-gray-100">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap lg:items-end gap-3 lg:gap-6 mt-4 pt-4 border-t border-gray-100">
 
           <div className="flex flex-col gap-1">
             <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">
@@ -115,7 +115,7 @@ export default function FilterControls() {
             <input
               type="text"
               defaultValue="2026-02-20"
-              className={`${inputCls} w-44`}
+              className={`${inputCls} w-full`}
             />
           </div>
 
@@ -123,7 +123,7 @@ export default function FilterControls() {
             <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">
               Compare Range
             </span>
-            <select className={`${inputCls} min-w-[140px] bg-white`}>
+            <select className={`${inputCls} w-full bg-white`}>
               <option value="">--</option>
               {CALENDAR_OPTIONS.map((o) => (
                 <option key={o} value={o}>{o}</option>

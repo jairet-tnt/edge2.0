@@ -186,7 +186,7 @@ export default function AIChatPage() {
         </div>
 
         {/* ── Right sidebar: session list ── */}
-        <div className="w-56 flex-shrink-0 border-l border-gray-200 bg-white flex flex-col">
+        <div className="hidden md:flex w-56 flex-shrink-0 border-l border-gray-200 bg-white flex-col">
           <div className="p-4 border-b border-gray-200">
             <button
               onClick={handleNewChat}

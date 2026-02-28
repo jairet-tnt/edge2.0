@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { PanelLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import FilterControls from "@/components/FilterControls";
@@ -70,14 +70,10 @@ export default function Home() {
         {/* Mobile Menu Button */}
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="lg:hidden fixed top-16 left-4 z-50 p-2 bg-white rounded-lg shadow-md border border-gray-200"
+          className="lg:hidden fixed top-[72px] left-3 z-50 w-9 h-9 flex items-center justify-center bg-brand-darkBlue rounded-lg shadow-md"
           aria-label="Toggle menu"
         >
-          {sidebarOpen ? (
-            <X className="h-6 w-6 text-brand-darkBlue" />
-          ) : (
-            <Menu className="h-6 w-6 text-brand-darkBlue" />
-          )}
+          <PanelLeft className="h-5 w-5 text-brand-lightBlue" />
         </button>
 
         <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(false)} />

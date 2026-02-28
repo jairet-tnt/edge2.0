@@ -288,47 +288,47 @@ export default function HourlyReportPage() {
 
         {/* ── Filters ── */}
         <div className="bg-white rounded border border-gray-200 p-4">
-          <div className="flex flex-wrap items-end gap-4">
-            <div>
-              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Date Range</div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap lg:items-end gap-3 lg:gap-4">
+            <div className="flex flex-col gap-1">
+              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Date Range</div>
               <input
                 type="text"
                 defaultValue={dateRange}
-                className="px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue w-52"
+                className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue"
               />
             </div>
-            <div>
-              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Calendar Range</div>
+            <div className="flex flex-col gap-1">
+              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Calendar Range</div>
               <select
                 value={calRange}
                 onChange={e => setCalRange(e.target.value)}
-                className="px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue min-w-[150px]"
+                className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue"
               >
                 {CALENDAR_RANGES.map(r => <option key={r}>{r}</option>)}
               </select>
             </div>
-            <div>
-              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Account</div>
+            <div className="flex flex-col gap-1">
+              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Account</div>
               <select
                 value={account}
                 onChange={e => setAccount(e.target.value)}
-                className="px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue min-w-[180px]"
+                className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue"
               >
                 {ACCOUNTS.map(a => <option key={a}>{a}</option>)}
               </select>
             </div>
-            <div>
-              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Show Field</div>
+            <div className="flex flex-col gap-1">
+              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Show Field</div>
               <select
                 value={showField}
                 onChange={e => setShowField(e.target.value as "roas" | "cpa")}
-                className="px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue min-w-[120px]"
+                className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue"
               >
                 <option value="roas">roas</option>
                 <option value="cpa">cpa</option>
               </select>
             </div>
-            <button className="w-10 h-10 flex items-center justify-center rounded-full bg-brand-lightBlue hover:bg-brand-brandBlue text-white transition-colors mb-0.5 ml-auto">
+            <button className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-brand-lightBlue hover:bg-brand-brandBlue text-white transition-colors lg:ml-auto">
               <RefreshCw className="h-4 w-4" />
             </button>
           </div>

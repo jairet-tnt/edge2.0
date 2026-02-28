@@ -359,7 +359,7 @@ export default function CreativesKpiPage() {
         <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-5 space-y-4">
 
           {/* Row 1 */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-3">
             <div><div className={label}>Account</div>
               <Sel value={account} options={["Account 1","Account 2","Account 3"]} onChange={setAccount} placeholder="Select..." /></div>
             <div><div className={label}>Funnel</div>
@@ -375,7 +375,7 @@ export default function CreativesKpiPage() {
           </div>
 
           {/* Row 2 */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-3 items-end">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 gap-y-3 items-end">
             <div><div className={label}>Cell</div>
               <Sel value={cell} options={["Cell A","Cell B","Cell C"]} onChange={setCell} placeholder="Select..." /></div>
             <div><div className={label}>Client</div>

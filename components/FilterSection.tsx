@@ -92,35 +92,35 @@ function AdvancedFilterPanel() {
       </div>
 
       {/* Row 2: field / condition / value / date / calendar / ops */}
-      <div className="flex flex-wrap items-end gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-wrap lg:items-end gap-2 lg:gap-3">
         <div className="flex flex-col gap-1">
           <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Field</span>
-          <select className={`${inp} min-w-[140px]`}>
+          <select className={`${inp} w-full`}>
             {FILTER_FIELDS.map(f => <option key={f}>{f}</option>)}
           </select>
         </div>
         <div className="flex flex-col gap-1">
           <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Condition</span>
-          <select className={`${inp} min-w-[180px]`}>
+          <select className={`${inp} w-full`}>
             {FILTER_CONDITIONS.map(c => <option key={c}>{c}</option>)}
           </select>
         </div>
         <div className="flex flex-col gap-1">
           <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Value</span>
-          <input type="text" className={`${inp} w-24`} />
+          <input type="text" className={`${inp} w-full`} />
         </div>
         <div className="flex flex-col gap-1">
           <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Date Range</span>
-          <input type="text" readOnly className={`${inp} w-40 !bg-brand-lightGrey cursor-default`} />
+          <input type="text" readOnly className={`${inp} w-full !bg-brand-lightGrey cursor-default`} />
         </div>
         <div className="flex flex-col gap-1">
           <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Calendar Range</span>
-          <select className={`${inp} min-w-[140px]`}>
+          <select className={`${inp} w-full`}>
             <option value="">--</option>
             {FILTER_CALENDAR.map(o => <option key={o}>{o}</option>)}
           </select>
         </div>
-        <div className="flex gap-1 pb-[1px]">
+        <div className="flex gap-1 items-end pb-[1px]">
           <button className={btnB}>AND</button>
           <button className={btnB}>OR</button>
           <button className={btnG}>DEL</button>
@@ -215,7 +215,7 @@ export default function FilterSection({
                 {cfDrop.open ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
               </button>
               {cfDrop.open && (
-                <div className="absolute right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-xl z-50 p-3" style={{ minWidth: 280 }}>
+                <div className="absolute right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-xl z-50 p-3" style={{ minWidth: 240, maxWidth: "calc(100vw - 32px)" }}>
                   <div className="grid grid-cols-2 gap-x-4 gap-y-2">
                     {customFields.map(field => (
                       <label key={field.id} className="flex items-center gap-2 cursor-pointer group">

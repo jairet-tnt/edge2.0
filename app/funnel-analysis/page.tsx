@@ -109,39 +109,39 @@ export default function FunnelAnalysisPage() {
       <div className="p-4 lg:p-6 space-y-6">
         {/* Filters */}
         <div className="bg-white rounded border border-gray-200 p-4">
-          <div className="flex flex-wrap items-end gap-4">
-            <div>
-              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Account</div>
-              <select className="px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue min-w-[180px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap lg:items-end gap-3 lg:gap-4">
+            <div className="flex flex-col gap-1">
+              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Account</div>
+              <select className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue">
                 <option>[D] Emma 12</option>
                 <option>All Accounts</option>
               </select>
             </div>
-            <div>
-              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Platform</div>
-              <select className="px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue min-w-[160px]">
+            <div className="flex flex-col gap-1">
+              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Platform</div>
+              <select className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue">
                 <option>Facebook</option>
                 <option>Google</option>
                 <option>TikTok</option>
               </select>
             </div>
-            <div>
-              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Date Range</div>
+            <div className="flex flex-col gap-1">
+              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Date Range</div>
               <input
                 type="text"
                 defaultValue="2026-02-20 to 2026-02-26"
-                className="px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue w-52"
+                className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue"
               />
             </div>
-            <div>
-              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Calendar Range</div>
-              <select className="px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue min-w-[160px]">
+            <div className="flex flex-col gap-1">
+              <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Calendar Range</div>
+              <select className="w-full px-3 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue">
                 <option>Last 7 Days</option>
                 <option>Last Month</option>
                 <option>Last 30 Days</option>
               </select>
             </div>
-            <button className="w-10 h-10 flex items-center justify-center rounded-full bg-brand-lightBlue hover:bg-brand-brandBlue text-white transition-colors mb-0.5">
+            <button className="w-10 h-10 flex-shrink-0 flex items-center justify-center rounded-full bg-brand-lightBlue hover:bg-brand-brandBlue text-white transition-colors">
               <RefreshCw className="h-4 w-4" />
             </button>
           </div>

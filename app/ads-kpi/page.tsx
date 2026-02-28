@@ -57,7 +57,7 @@ export default function AdsKpiPage() {
       <div className="p-4 lg:p-6 space-y-4">
         {/* Filters */}
         <div className="bg-white rounded border border-gray-200 p-4">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-4">
             <div>
               <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Account</div>
               <select className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue">
@@ -99,7 +99,7 @@ export default function AdsKpiPage() {
               </select>
             </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 items-end">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 items-end">
             <div>
               <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Camp. Launch Date</div>
               <input
@@ -163,7 +163,7 @@ export default function AdsKpiPage() {
         {/* Filter rows */}
         <div className="bg-white rounded border border-gray-200 p-4 space-y-3">
           {[0, 1].map((rowIdx) => (
-            <div key={rowIdx} className="flex flex-wrap items-center gap-3">
+            <div key={rowIdx} className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap lg:items-center gap-2 lg:gap-3">
               <div className="flex items-center gap-2">
                 <span className="text-xs text-gray-500 font-medium">Field</span>
                 <select className="px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue w-28">

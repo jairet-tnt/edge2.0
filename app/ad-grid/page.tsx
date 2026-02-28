@@ -279,7 +279,7 @@ export default function AdGridPage() {
 
           {filterOpen && (
             <div className="px-4 pb-4 border-t border-gray-100">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mt-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mt-3">
                 <div>
                   <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1">Filter Campaign Name</div>
                   <select className="w-full px-2 py-1.5 border border-gray-300 rounded text-sm focus:outline-none focus:ring-1 focus:ring-brand-brandBlue">

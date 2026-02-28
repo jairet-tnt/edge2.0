@@ -253,7 +253,7 @@ export default function StrikeRateReportPage() {
               <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wide">Date Range</span>
               <input
                 type="text" value={dateRange} onChange={e => setDateRange(e.target.value)}
-                className="border border-gray-300 rounded px-2 py-1.5 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-brand-brandBlue bg-white w-52"
+                className="w-full border border-gray-300 rounded px-2 py-1.5 text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-brand-brandBlue bg-white"
               />
               <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wide mt-2">Calendar Range</span>
               <div className="flex items-center gap-1.5">

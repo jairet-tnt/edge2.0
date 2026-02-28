@@ -141,7 +141,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
         {/* ── Toggle button ── */}
         <div
           className={cn(
-            "flex-shrink-0 pt-4 pb-3 flex",
+            "flex-shrink-0 pt-4 pb-3 hidden lg:flex",
             collapsed ? "justify-center" : "justify-end pr-3"
           )}
         >

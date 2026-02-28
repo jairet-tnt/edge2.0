@@ -147,7 +147,7 @@ export default function ChartSection() {
       <DualAxisChart lm={lm} rm={rm} />
 
       {/* Metric selectors */}
-      <div className="flex gap-8 mt-4">
+      <div className="flex flex-wrap gap-4 sm:gap-8 mt-4">
         <div className="flex flex-col gap-1">
           <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">
             Metric Left

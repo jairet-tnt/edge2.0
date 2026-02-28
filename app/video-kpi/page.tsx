@@ -128,13 +128,13 @@ function VideoKpiFilterControls() {
   const lbl = "text-[10px] font-semibold text-gray-500 uppercase tracking-wider";
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 px-6 py-4">
-      <div className="flex flex-wrap items-start gap-x-6 gap-y-4">
+    <div className="bg-white rounded-xl border border-gray-200 px-4 sm:px-6 py-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap lg:items-start gap-3 lg:gap-x-6 lg:gap-y-4">
 
         {/* ACCOUNT */}
         <div className="flex flex-col gap-1">
           <span className={lbl}>Account</span>
-          <div className="flex items-center gap-1 px-2 py-1.5 border border-gray-300 rounded bg-white min-w-[190px]">
+          <div className="flex items-center gap-1 px-2 py-1.5 border border-gray-300 rounded bg-white w-full">
             <span className="text-sm text-gray-700 flex-1 truncate">{account}</span>
             <button onClick={() => setAccount("")} className="text-gray-400 hover:text-gray-600 p-0.5">
               <X className="h-3.5 w-3.5" />
@@ -146,48 +146,48 @@ function VideoKpiFilterControls() {
         {/* FUNNEL */}
         <div className="flex flex-col gap-1">
           <span className={lbl}>Funnel</span>
-          <select className={`${inp} min-w-[140px]`}><option value="">...</option></select>
+          <select className={`${inp} w-full`}><option value="">...</option></select>
         </div>
 
         {/* PLATFORM */}
         <div className="flex flex-col gap-1">
           <span className={lbl}>Platform</span>
-          <select className={`${inp} min-w-[140px]`}><option value="">...</option></select>
+          <select className={`${inp} w-full`}><option value="">...</option></select>
         </div>
 
-        {/* Date + Calendar stacked 2 rows */}
-        <div className="flex flex-col gap-3">
-          <div className="flex gap-6">
-            <div className="flex flex-col gap-1">
-              <span className={lbl}>Date Range</span>
-              <input type="text" defaultValue="2026-02-14 to 2026-02-27" readOnly
-                className={`${inp} w-52 bg-brand-lightGrey cursor-default`} />
-            </div>
-            <div className="flex flex-col gap-1">
-              <span className={lbl}>Calendar Range</span>
-              <select className={`${inp} min-w-[150px]`}>
-                {CALENDAR_OPTS.map(o => <option key={o}>{o}</option>)}
-              </select>
-            </div>
-          </div>
-          <div className="flex gap-6">
-            <div className="flex flex-col gap-1">
-              <span className={lbl}>Camp. Launch Date</span>
-              <input type="text" readOnly
-                className={`${inp} w-52 bg-brand-lightGrey cursor-default`} />
-            </div>
-            <div className="flex flex-col gap-1">
-              <span className={lbl}>Camp. Launch Range</span>
-              <select className={`${inp} min-w-[150px]`}>
-                <option value="">...</option>
-                {CALENDAR_OPTS.map(o => <option key={o}>{o}</option>)}
-              </select>
-            </div>
-          </div>
+        {/* DATE RANGE */}
+        <div className="flex flex-col gap-1">
+          <span className={lbl}>Date Range</span>
+          <input type="text" defaultValue="2026-02-14 to 2026-02-27" readOnly
+            className={`${inp} w-full bg-brand-lightGrey cursor-default`} />
+        </div>
+
+        {/* CALENDAR RANGE */}
+        <div className="flex flex-col gap-1">
+          <span className={lbl}>Calendar Range</span>
+          <select className={`${inp} w-full`}>
+            {CALENDAR_OPTS.map(o => <option key={o}>{o}</option>)}
+          </select>
+        </div>
+
+        {/* CAMP. LAUNCH DATE */}
+        <div className="flex flex-col gap-1">
+          <span className={lbl}>Camp. Launch Date</span>
+          <input type="text" readOnly
+            className={`${inp} w-full bg-brand-lightGrey cursor-default`} />
+        </div>
+
+        {/* CAMP. LAUNCH RANGE */}
+        <div className="flex flex-col gap-1">
+          <span className={lbl}>Camp. Launch Range</span>
+          <select className={`${inp} w-full`}>
+            <option value="">...</option>
+            {CALENDAR_OPTS.map(o => <option key={o}>{o}</option>)}
+          </select>
         </div>
 
         {/* Refresh */}
-        <div className="ml-auto">
+        <div className="flex items-end lg:ml-auto">
           <button
             className="w-10 h-10 flex items-center justify-center rounded-full bg-brand-lightBlue hover:bg-brand-brandBlue text-white transition-colors"
             aria-label="Refresh"
@@ -203,32 +203,32 @@ function VideoKpiFilterControls() {
 
 // ─── Filter Card 2 ─────────────────────────────────────────────────────────────
 function FilterRow() {
-  const inp = "px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-brand-brandBlue";
+  const inp = "w-full px-2.5 py-1.5 border border-gray-300 rounded text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-brand-brandBlue";
   return (
-    <div className="flex flex-wrap items-center gap-3">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-wrap lg:items-end gap-2 lg:gap-3">
       <div className="flex flex-col gap-0.5">
         <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Field</span>
-        <input type="text" placeholder="..." className={`${inp} w-32`} />
+        <input type="text" placeholder="..." className={inp} />
       </div>
       <div className="flex flex-col gap-0.5">
         <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Comparison</span>
-        <select className={`${inp} min-w-[130px]`}><option value="">...</option></select>
+        <select className={inp}><option value="">...</option></select>
       </div>
       <div className="flex flex-col gap-0.5">
         <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Value</span>
         <div className="relative">
-          <input type="text" placeholder="Enter value" className={`${inp} w-36 pr-7`} />
+          <input type="text" placeholder="Enter value" className={`${inp} pr-7`} />
           <Search className="absolute right-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
         </div>
       </div>
       <div className="flex flex-col gap-0.5">
         <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Filter Name</span>
-        <select className={`${inp} min-w-[130px]`}><option value="">...</option></select>
+        <select className={inp}><option value="">...</option></select>
       </div>
       <div className="flex flex-col gap-0.5">
         <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">Name</span>
         <div className="relative">
-          <input type="text" placeholder="Enter name" className={`${inp} w-36 pr-7`} />
+          <input type="text" placeholder="Enter name" className={`${inp} pr-7`} />
           <Search className="absolute right-2 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-gray-400" />
         </div>
       </div>
