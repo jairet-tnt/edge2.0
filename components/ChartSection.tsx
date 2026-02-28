@@ -10,7 +10,7 @@ const METRICS = [
 // 14-day mock data: Feb 14 – 27 2026
 const DATES = Array.from({ length: 14 }, (_, i) => {
   const d = new Date(2026, 1, 14 + i);
-  return `2026-02-${String(d.getDate()).padStart(2, "0")}`;
+  return `02-${String(d.getDate()).padStart(2, "0")}`;
 });
 
 const METRIC_DATA: Record<string, number[]> = {
@@ -31,19 +31,25 @@ function fmtTick(v: number, m: string): string {
   if (m === "Spend")   return v >= 1000 ? `${(v / 1000).toFixed(1)}K` : String(Math.round(v));
   if (m === "ROAS")    return v.toFixed(2);
   if (m === "CTR" || m === "CVR") return v.toFixed(2);
-  if (["CPM", "CPC", "CPA", "AOV"].includes(m)) return `$${v.toFixed(2)}`;
+  if (["CPM", "CPC", "CPA", "AOV"].includes(m)) return `$${v.toFixed(0)}`;
   return v >= 1000 ? `${(v / 1000).toFixed(0)}K` : String(Math.round(v));
 }
 
-const LEFT_COLOR  = "#4f46e5"; // indigo  — metric left line
-const RIGHT_COLOR = "#0891b2"; // cyan    — metric right line
+const LEFT_COLOR  = "#4f46e5";
+const RIGHT_COLOR = "#0891b2";
+
+// Shorten a campaign label for the legend
+function shortLabel(metric: string) {
+  return `CBO Scaling — ${metric}`;
+}
 
 function DualAxisChart({ lm, rm }: { lm: string; rm: string }) {
   const ld = METRIC_DATA[lm] ?? METRIC_DATA.Spend;
   const rd = METRIC_DATA[rm] ?? METRIC_DATA.Spend;
 
-  const W = 1100, H = 220;
-  const PL = 64, PR = 64, PT = 14, PB = 28;
+  const W = 1000, H = 200;
+  // No bottom padding for dates — they live in HTML below the SVG
+  const PL = 52, PR = 52, PT = 12, PB = 8;
   const CW = W - PL - PR;
   const CH = H - PT - PB;
   const n  = DATES.length;
@@ -61,9 +67,7 @@ function DualAxisChart({ lm, rm }: { lm: string; rm: string }) {
   const xP = (i: number) => PL + (i / (n - 1)) * CW;
 
   const mkPath = (data: number[], yFn: (v: number) => number) =>
-    data
-      .map((v, i) => `${i === 0 ? "M" : "L"} ${xP(i).toFixed(1)} ${yFn(v).toFixed(1)}`)
-      .join(" ");
+    data.map((v, i) => `${i === 0 ? "M" : "L"} ${xP(i).toFixed(1)} ${yFn(v).toFixed(1)}`).join(" ");
 
   const ticks = (lo: number, hi: number) =>
     Array.from({ length: 5 }, (_, i) => lo + (i / 4) * (hi - lo));
@@ -72,19 +76,25 @@ function DualAxisChart({ lm, rm }: { lm: string; rm: string }) {
 
   return (
     <div>
-      {/* Legend */}
-      <div className="flex items-center gap-6 mb-2 text-xs text-gray-600" style={{ paddingLeft: PL }}>
-        <span className="flex items-center gap-2">
-          <span className="inline-block w-5 h-[2px] rounded" style={{ backgroundColor: LEFT_COLOR }} />
-          CBO_Scaling2Ic_US-NDP 1/9/26 — {lm}
+      {/* Legend — wraps on mobile, truncates long names */}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-3 text-xs text-gray-600">
+        <span className="flex items-center gap-2 min-w-0">
+          <span className="inline-block w-5 h-[2px] rounded flex-shrink-0" style={{ backgroundColor: LEFT_COLOR }} />
+          <span className="truncate">{shortLabel(lm)}</span>
         </span>
-        <span className="flex items-center gap-2">
-          <span className="inline-block w-5 h-[2px] rounded" style={{ backgroundColor: RIGHT_COLOR }} />
-          CBO_Scaling2Ic_US-NDP 1/9/26 — {rm}
+        <span className="flex items-center gap-2 min-w-0">
+          <span className="inline-block w-5 h-[2px] rounded flex-shrink-0" style={{ backgroundColor: RIGHT_COLOR }} />
+          <span className="truncate">{shortLabel(rm)}</span>
         </span>
       </div>
 
-      <svg viewBox={`0 0 ${W} ${H}`} className="w-full" preserveAspectRatio="none" style={{ height: 220 }}>
+      {/* SVG chart — no date labels inside, responsive height */}
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        className="w-full"
+        preserveAspectRatio="none"
+        style={{ height: "clamp(140px, 40vw, 200px)" }}
+      >
         {/* Grid lines */}
         {lTicks.map((v, i) => (
           <line key={i} x1={PL} y1={lY(v)} x2={W - PR} y2={lY(v)}
@@ -93,7 +103,7 @@ function DualAxisChart({ lm, rm }: { lm: string; rm: string }) {
 
         {/* Left Y-axis labels */}
         {lTicks.map((v, i) => (
-          <text key={i} x={PL - 6} y={lY(v) + 4}
+          <text key={i} x={PL - 5} y={lY(v) + 4}
             textAnchor="end" fontSize="11" fill="#6b7280">
             {fmtTick(v, lm)}
           </text>
@@ -101,17 +111,9 @@ function DualAxisChart({ lm, rm }: { lm: string; rm: string }) {
 
         {/* Right Y-axis labels */}
         {rTicks.map((v, i) => (
-          <text key={i} x={W - PR + 6} y={rY(v) + 4}
+          <text key={i} x={W - PR + 5} y={rY(v) + 4}
             textAnchor="start" fontSize="11" fill="#6b7280">
             {fmtTick(v, rm)}
-          </text>
-        ))}
-
-        {/* X-axis date labels */}
-        {DATES.map((d, i) => (
-          <text key={i} x={xP(i)} y={H - 5}
-            textAnchor="middle" fontSize="10" fill="#9ca3af">
-            {d}
           </text>
         ))}
 
@@ -124,30 +126,40 @@ function DualAxisChart({ lm, rm }: { lm: string; rm: string }) {
         <path d={mkPath(rd, rY)} stroke={RIGHT_COLOR} strokeWidth="2" fill="none" />
 
         {/* Data dots */}
-        {ld.map((v, i) => (
-          <circle key={i} cx={xP(i)} cy={lY(v)} r="3" fill={LEFT_COLOR} />
-        ))}
-        {rd.map((v, i) => (
-          <circle key={i} cx={xP(i)} cy={rY(v)} r="3" fill={RIGHT_COLOR} />
-        ))}
+        {ld.map((v, i) => <circle key={i} cx={xP(i)} cy={lY(v)} r="3" fill={LEFT_COLOR} />)}
+        {rd.map((v, i) => <circle key={i} cx={xP(i)} cy={rY(v)} r="3" fill={RIGHT_COLOR} />)}
       </svg>
+
+      {/* Date labels — HTML so they never compress or overlap */}
+      <div
+        className="flex justify-between mt-1"
+        style={{ paddingLeft: `${(PL / W) * 100}%`, paddingRight: `${(PR / W) * 100}%` }}
+      >
+        {DATES.map((d, i) => (
+          <span
+            key={i}
+            className={`text-[9px] sm:text-[10px] text-gray-400 ${i % 2 !== 0 ? "hidden sm:block" : "block"}`}
+          >
+            {d}
+          </span>
+        ))}
+      </div>
     </div>
   );
 }
 
-const sel =
-  "px-3 py-1.5 border border-gray-300 rounded text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-brand-brandBlue min-w-[130px]";
+const sel = "w-full px-3 py-1.5 border border-gray-300 rounded text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-brand-brandBlue";
 
 export default function ChartSection() {
   const [lm, setLm] = useState("Spend");
   const [rm, setRm] = useState("Spend");
 
   return (
-    <div className="bg-white rounded-xl border border-gray-200 px-6 py-5">
+    <div className="bg-white rounded-xl border border-gray-200 px-4 sm:px-6 py-5">
       <DualAxisChart lm={lm} rm={rm} />
 
       {/* Metric selectors */}
-      <div className="flex flex-wrap gap-4 sm:gap-8 mt-4">
+      <div className="grid grid-cols-2 sm:flex gap-3 sm:gap-8 mt-4">
         <div className="flex flex-col gap-1">
           <span className="text-[10px] font-semibold text-gray-500 uppercase tracking-wider">
             Metric Left

@@ -43,7 +43,7 @@ export default function Header({ earnings, sales, onSidebarToggle }: HeaderProps
             </button>
           )}
 
-          <div className="flex items-center gap-2">
+          <Link href="/" className="flex items-center gap-2">
             <img
               src="/TNT logo high res.png"
               alt="TNT Logo"
@@ -52,7 +52,7 @@ export default function Header({ earnings, sales, onSidebarToggle }: HeaderProps
             <h1 className="text-xl lg:text-2xl font-heading font-bold text-white">
               TNT EDGE
             </h1>
-          </div>
+          </Link>
 
           {/* Earnings + Sales pill — hidden on very small screens */}
           <div className="hidden sm:flex items-center gap-4 lg:gap-6 bg-white rounded-lg px-3 py-1.5">
