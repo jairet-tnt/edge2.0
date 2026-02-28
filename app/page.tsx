@@ -5,10 +5,10 @@ import { Menu, X } from "lucide-react";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 import FilterControls from "@/components/FilterControls";
+import ChartSection from "@/components/ChartSection";
 import FilterSection from "@/components/FilterSection";
 import DataTable from "@/components/DataTable";
 import Pagination from "@/components/Pagination";
-import CustomFieldsPanel from "@/components/CustomFieldsPanel";
 import { hierarchyData, getTotalMetrics, customFields } from "@/lib/mockData";
 import { FilterTab, ClientSubTab } from "@/types";
 
@@ -20,7 +20,6 @@ export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(15);
   const [selectedCustomFields, setSelectedCustomFields] = useState<string[]>([]);
-  const [customFieldsOpen, setCustomFieldsOpen] = useState(false);
 
   const total = getTotalMetrics(hierarchyData);
   const totalRow = {
@@ -86,64 +85,64 @@ export default function Home() {
         {/* Main Content */}
         <main className="flex-1 overflow-y-auto lg:ml-0">
           <div className="max-w-[1920px] mx-auto">
-            <FilterControls />
+            <div className="p-4 space-y-4">
 
-            <FilterSection
-              selectedTab={selectedTab}
-              selectedSubTab={selectedSubTab}
-              onTabChange={setSelectedTab}
-              onSubTabChange={setSelectedSubTab}
-              selectedCount={selectedRows.size}
-              totalCount={hierarchyData.length}
-              onSelectAll={handleSelectAll}
-              onCustomFieldsClick={() => setCustomFieldsOpen((prev) => !prev)}
-            />
+              {/* Card 1 — account / date / calendar controls */}
+              <FilterControls />
 
-            <div className="p-4 lg:p-6 relative">
-              {customFieldsOpen && (
-                <CustomFieldsPanel
-                  fields={customFields}
-                  selected={selectedCustomFields}
-                  onChange={setSelectedCustomFields}
-                  onClose={() => setCustomFieldsOpen(false)}
+              {/* Card 2 — dual-axis chart + metric selectors */}
+              <ChartSection />
+
+              {/* Card 3 — filter panel + tabs + data table */}
+              <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+                <FilterSection
+                  selectedTab={selectedTab}
+                  selectedSubTab={selectedSubTab}
+                  onTabChange={setSelectedTab}
+                  onSubTabChange={setSelectedSubTab}
+                  selectedCount={selectedRows.size}
+                  totalCount={hierarchyData.length}
+                  onSelectAll={handleSelectAll}
+                  customFields={customFields}
+                  selectedCustomFields={selectedCustomFields}
+                  onCustomFieldsChange={setSelectedCustomFields}
                 />
-              )}
 
-              <DataTable
-                rows={paginatedRows}
-                total={totalRow}
-                selectedRows={selectedRows}
-                onSelectRow={handleSelectRow}
-                onSelectAll={handleSelectAll}
-                selectedCustomFields={selectedCustomFields}
-                customFieldLabels={customFieldLabels}
-              />
+                <div className="px-4 lg:px-6 py-4">
+                  <DataTable
+                    rows={paginatedRows}
+                    total={totalRow}
+                    selectedRows={selectedRows}
+                    onSelectRow={handleSelectRow}
+                    onSelectAll={handleSelectAll}
+                    selectedCustomFields={selectedCustomFields}
+                    customFieldLabels={customFieldLabels}
+                  />
 
-              <Pagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                totalItems={hierarchyData.length}
-                itemsPerPage={itemsPerPage}
-                onPageChange={setCurrentPage}
-                onItemsPerPageChange={(items) => {
-                  setItemsPerPage(items);
-                  setCurrentPage(1);
-                }}
-              />
+                  <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    totalItems={hierarchyData.length}
+                    itemsPerPage={itemsPerPage}
+                    onPageChange={setCurrentPage}
+                    onItemsPerPageChange={(items) => {
+                      setItemsPerPage(items);
+                      setCurrentPage(1);
+                    }}
+                  />
+                </div>
+              </div>
+
             </div>
 
             {/* Footer */}
             <footer className="px-4 py-4 border-t border-gray-200 bg-white">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-600">
                 <div className="flex items-center gap-4">
-                  <a href="#" className="hover:text-gray-900">
-                    Home
-                  </a>
-                  <a href="#" className="hover:text-gray-900">
-                    Help
-                  </a>
+                  <a href="#" className="hover:text-gray-900">Home</a>
+                  <a href="#" className="hover:text-gray-900">Help</a>
                 </div>
-                <div>Copyright 2022 © All rights reserved.</div>
+                <div>Copyright 2026 © All rights reserved.</div>
               </div>
             </footer>
           </div>

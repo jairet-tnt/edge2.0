@@ -35,4 +35,14 @@
   }
 }
 
+@media print {
+  .no-print { display: none !important; }
+  aside, header, footer, nav { display: none !important; }
+  body { background: white !important; }
+  main { margin: 0 !important; padding: 0 !important; overflow: visible !important; }
+  .print-area { padding: 12px !important; }
+  table { page-break-inside: auto; }
+  tr { page-break-inside: avoid; }
+}
+
 
