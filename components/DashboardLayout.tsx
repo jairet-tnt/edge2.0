@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { PanelLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
 
@@ -10,18 +9,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="min-h-screen bg-brand-lightGrey flex flex-col">
-      <Header earnings={12300} sales={264} />
+      <Header earnings={12300} sales={264} onSidebarToggle={() => setSidebarOpen((o) => !o)} />
 
       <div className="flex flex-1 overflow-hidden relative">
         {/* Mobile Menu Button */}
-        <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          className="lg:hidden fixed top-[72px] left-3 z-50 w-9 h-9 flex items-center justify-center bg-brand-darkBlue rounded-lg shadow-md"
-          aria-label="Toggle menu"
-        >
-          <PanelLeft className="h-5 w-5 text-brand-lightBlue" />
-        </button>
-
         <Sidebar isOpen={sidebarOpen} onToggle={() => setSidebarOpen(false)} />
 
         <main className="flex-1 overflow-y-auto lg:ml-0">

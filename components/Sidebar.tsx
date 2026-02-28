@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -113,32 +113,51 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
     business: isSectionActive(businessLinks),
   });
 
+  // Lock body scroll while mobile sidebar is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [isOpen]);
+
   const toggleSection = (key: "traffic" | "creatives" | "business") => {
     setExpandedSections((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
+  const handleLinkClick = () => {
+    if (typeof window !== "undefined" && window.innerWidth < 1024) onToggle();
+  };
+
   return (
     <>
-      {/* Mobile overlay */}
+      {/* Mobile backdrop — tap to close */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
           onClick={onToggle}
         />
       )}
 
-      {/* Sidebar */}
+      {/* Sidebar panel */}
       <aside
         className={cn(
-          "fixed lg:static left-0 z-40 bg-brand-darkBlue border-r border-white/5",
+          // Mobile: fixed, starts below header (top-16 = 64px)
+          // Desktop: static, part of normal flex flow
+          "fixed top-16 lg:static lg:top-auto",
+          "left-0 z-50 lg:z-auto",
+          "bg-brand-darkBlue border-r border-white/5",
           "flex flex-col transition-all duration-300 ease-in-out",
           collapsed ? "w-[68px]" : "w-56",
-          "top-0",
+          // Mobile: slide in/out; Desktop: always visible
           isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         )}
-        style={{ height: "100vh" }}
+        // Mobile: fill viewport below header; Desktop: fill parent height
+        style={{ height: "calc(100vh - 64px)" }}
       >
-        {/* ── Toggle button ── */}
+        {/* ── Desktop-only collapse toggle ── */}
         <div
           className={cn(
             "flex-shrink-0 pt-4 pb-3 hidden lg:flex",
@@ -154,10 +173,10 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
           </button>
         </div>
 
-        {/* ── Nav items ── */}
-        <div className="flex-1 overflow-y-auto scrollbar-hide">
+        {/* ── Nav items — overscroll-contain prevents page scroll bleed ── */}
+        <div className="flex-1 overflow-y-auto overscroll-contain scrollbar-hide">
           {collapsed ? (
-            /* ══ Collapsed: icon stacked above label ══ */
+            /* ══ Collapsed: icon + label ══ */
             <nav className="flex flex-col items-center gap-0.5 px-1.5 pb-4">
               {NAV_ITEMS.map((item) => {
                 const Icon = item.icon;
@@ -196,7 +215,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
             </nav>
           ) : (
             /* ══ Expanded: full navigation ══ */
-            <div className="px-3 pb-4">
+            <div className="px-3 py-2 pb-6">
               {NAV_ITEMS.map((item) => {
                 const Icon = item.icon;
 
@@ -206,7 +225,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                     <div key={item.key} className="mb-1">
                       <Link
                         href={item.href}
-                        onClick={() => { if (typeof window !== "undefined" && window.innerWidth < 1024) onToggle(); }}
+                        onClick={handleLinkClick}
                         className={cn(
                           "w-full flex items-center gap-2 text-base font-bold py-2 px-2 rounded transition-colors",
                           active
@@ -251,7 +270,7 @@ export default function Sidebar({ isOpen, onToggle }: SidebarProps) {
                           <Link
                             key={link.href}
                             href={link.href}
-                            onClick={() => { if (typeof window !== "undefined" && window.innerWidth < 1024) onToggle(); }}
+                            onClick={handleLinkClick}
                             className={cn(
                               "block text-sm py-1 px-2 rounded transition-colors",
                               pathname === link.href
